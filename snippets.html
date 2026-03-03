@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bloxd.io Code Snippets Library</title>
+    <style>
+        /* CSS THEME SNIPPETS (ORANGE/FIRE) */
+        body { font-family: 'Consolas', 'Monaco', monospace; background-color: #0d0d0d; color: #e0e0e0; margin: 0; display: flex; line-height: 1.5; }
+        .sidebar { width: 250px; background: #1a1a1a; height: 100vh; position: fixed; border-right: 2px solid #e67e22; padding: 20px; box-sizing: border-box; }
+        .back-btn { display: block; background: #e67e22; color: #000; text-decoration: none; padding: 12px; border-radius: 4px; font-weight: bold; text-align: center; margin-bottom: 20px; transition: 0.2s; }
+        .back-btn:hover { background: #d35400; }
+        .main-content { margin-left: 250px; padding: 20px; width: 100%; max-width: 1000px; }
+        h1 { color: #e67e22; border-bottom: 2px solid #333; padding-bottom: 10px; margin: 0; }
+        h2 { color: #f39c12; margin-top: 40px; border-left: 4px solid #e67e22; padding-left: 10px; }
+        .snippet-card { background: #1e1e1e; border: 1px solid #333; padding: 20px; border-radius: 8px; margin-bottom: 25px; }
+        .snip-title { color: #4fc3f7; font-size: 1.2rem; font-weight: bold; display: block; margin-bottom: 10px; }
+        .snip-desc { color: #bbb; font-size: 0.9rem; margin-bottom: 15px; display: block; }
+        pre { background: #000; padding: 15px; border-radius: 5px; color: #9cdcfe; border: 1px solid #444; overflow-x: auto; font-size: 0.85rem; }
+        .copy-btn { background: #333; color: #eee; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.7rem; float: right; }
+        .copy-btn:hover { background: #444; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="index.html" class="back-btn">🏠 Back To Hub</a>
+        <p style="font-size: 0.8rem; color: #666;">Navigation:<br>Ready-to-use Scripts</p>
+    </div>
+    <div class="main-content">
+        <h1>🔥 Code Snippet Library</h1>
+        <p>Copy and paste these scripts into your <strong>F8 World Code</strong> to add cool features instantly!</p>
+
+        <!-- SNIPPET 1 -->
+        <div class="snippet-card">
+            <span class="snip-title">1. Anti-Void Teleport</span>
+            <span class="snip-desc">Teleports players back to spawn if they fall below a certain height (Y level).</span>
+            <pre>
+tick = (ms) => {
+    const ids = api.getPlayerIds();
+    for (const id of ids) {
+        const pos = api.getPosition(id);
+        /* If player falls below Y = -10 */
+        if (pos[1] < -10) {
+            api.setPosition(id, 0, 5, 0); /* Teleport to 0, 5, 0 */
+            api.sendMessage(id, "Don't fall into the void!");
+        }
+    }
+}</pre>
+        </div>
+
+        <!-- SNIPPET 2 -->
+        <div class="snippet-card">
+            <span class="snip-title">2. Auto-Heal Zone</span>
+            <span class="snip-desc">Heals players when they stand on a specific coordinate (e.g., your base).</span>
+            <pre>
+onBlockStand = (playerId, x, y, z, blockName) => {
+    /* Replace with your base coordinates */
+    if (x == 10 && z == 10) {
+        const currentHealth = api.getHealth(playerId);
+        if (currentHealth < 100) {
+            api.applyHealthChange(playerId, 5);
+            api.sendFlyingMiddleMessage(playerId, ["+5 HP (Healing Zone)"], 100);
+        }
+    }
+}</pre>
+        </div>
+
+        <!-- SNIPPET 3 -->
+        <div class="snippet-card">
+            <span class="snip-title">3. Custom Kill Message</span>
+            <span class="snip-desc">Broadcasts a funny or cool message when a player gets a kill.</span>
+            <pre>
+onPlayerKilledOtherPlayer = (attacker, victim) => {
+    const nameA = api.getEntityName(attacker);
+    const nameV = api.getEntityName(victim);
+    api.broadcastMessage(nameA + " sent " + nameV + " to the lobby!", { color: "red" });
+    api.playSound(attacker, "levelup", 1, 1);
+}</pre>
+        </div>
+
+    </div>
+</body>
+</html>
