@@ -1,5 +1,9 @@
-# 🚀 Bloxd.io Master Developer Hub
+<p align="center">
+  <img src="logo.png" width="220">
+</p>
 
+# 🚀 Bloxd.io Master Developer Hub
+The most complete documentation hub for Bloxd.io Developers.
 Welcome to the **Bloxd.io Master Developer Hub**! This is the most comprehensive technical documentation site for developers looking to create custom games, mechanics, and game modes within the Bloxd.io universe using World Code and Code Blocks.
 
 ---
