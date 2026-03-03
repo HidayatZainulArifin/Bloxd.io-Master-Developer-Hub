@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bloxd.io Master Callbacks Reference</title>
+    <style>
+        /* CSS THEME CALLBACKS (GOLD/YELLOW) */
+        body { font-family: 'Consolas', 'Monaco', monospace; background-color: #0d0d0d; color: #e0e0e0; margin: 0; display: flex; line-height: 1.5; }
+        .sidebar { width: 250px; background: #1a1a1a; height: 100vh; position: fixed; border-right: 2px solid #ffca28; padding: 20px; box-sizing: border-box; }
+        .back-btn { display: block; background: #ffca28; color: #000; text-decoration: none; padding: 12px; border-radius: 4px; font-weight: bold; text-align: center; margin-bottom: 20px; transition: 0.2s; }
+        .back-btn:hover { background: #ffd54f; }
+        .main-content { margin-left: 250px; padding: 20px; width: 100%; }
+        h1 { color: #ffca28; border-bottom: 2px solid #333; padding-bottom: 10px; margin: 0; }
+        h2 { color: #fff176; margin-top: 30px; border-left: 4px solid #ffca28; padding-left: 10px; }
+        .search-box { width: 100%; padding: 12px; background: #1e1e1e; border: 1px solid #333; color: #ffca28; border-radius: 4px; font-size: 1.1em; outline: none; margin: 15px 0; }
+        pre { background: #181818; padding: 15px; border-radius: 5px; color: #9cdcfe; border: 1px solid #333; overflow-x: auto; font-size: 0.85rem; margin: 10px 0; }
+        .callback-card { background: #1e1e1e; border: 1px solid #333; padding: 15px; margin-bottom: 15px; border-radius: 6px; transition: 0.2s; }
+        .callback-card:hover { border-color: #ffca28; }
+        .cb-name { color: #4fc3f7; font-weight: bold; font-size: 1.1rem; }
+        .cb-desc { color: #ce9178; font-size: 0.9rem; display: block; margin: 5px 0; }
+        .counter { color: #888; font-size: 0.8rem; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <a href="index.html" class="back-btn">🏠 Back To Hub</a>
+        <p style="font-size: 0.8rem; color: #666;">Navigation:<br>Logic & Callbacks</p>
+    </div>
+
+    <div class="main-content">
+        <h1>Master Callbacks Encyclopedia</h1>
+        <input type="text" id="searchInput" class="search-box" placeholder="Search event (Example: Join, Chat, Damage, Block)..." onkeyup="filterContent()">
+        <div id="countDisplay" class="counter">Loading...</div>
+
+        <section id="cbList">
+            <!-- Data rendered by JS -->
+        </section>
+    </div>
+
+    <script>
+        const callbacks = [
+            { name: "tick", desc: "Runs continuously (20 times per second). Use for persistent logic.", code: "tick = (ms) => {}" },
+            { name: "onPlayerJoin", desc: "Runs when a player joins the world.", code: "onPlayerJoin = (playerId, fromGameReset) => {}" },
+            { name: "onPlayerChat", desc: "Detects when a player sends a message in chat.", code: "onPlayerChat = (playerId, chatMessage, channelName) => {}" },
+            { name: "onPlayerLeave", desc: "Runs when a player leaves the world.", code: "onPlayerLeave = (playerId, serverIsShuttingDown) => {}" },
+            { name: "onPlayerJump", desc: "Runs when a player jumps.", code: "onPlayerJump = (playerId) => {}" },
+            { name: "onRespawnRequest", desc: "Detects when a player presses the respawn button.", code: "onRespawnRequest = (playerId) => {}" },
+            { name: "playerCommand", desc: "Detects custom commands from players.", code: "playerCommand = (playerId, command) => {}" },
+            { name: "onPlayerChangeBlock", desc: "Runs when a player breaks or places a block.", code: "onPlayerChangeBlock = (playerId, x, y, z, fromBlock, toBlock) => {}" },
+            { name: "onBlockStand", desc: "Detects when a player stands on a specific block.", code: "onBlockStand = (playerId, x, y, z, blockName) => {}" },
+            { name: "onPlayerDamageOtherPlayer", desc: "Runs when a player attacks another player (PvP).", code: "onPlayerDamagingOtherPlayer = (attackingPlayer, damagedPlayer, damageDealt) => {}" },
+            { name: "onPlayerKilledOtherPlayer", desc: "Runs when a player successfully kills another player.", code: "onPlayerKilledOtherPlayer = (attackingPlayer, killedPlayer) => {}" },
+            { name: "onPlayerPickedUpItem", desc: "Runs when a player picks up an item from the ground.", code: "onPlayerPickedUpItem = (playerId, itemName, itemAmount) => {}" },
+            { name: "onPlayerDropItem", desc: "Runs when a player drops an item from their inventory.", code: "onPlayerDropItem = (playerId, x, y, z, itemName, itemAmount) => {}" },
+            { name: "onPlayerCraft", desc: "Runs when a player finishes crafting an item.", code: "onPlayerCraft = (playerId, itemName, craftingIdx) => {}" },
+            { name: "onPlayerOpenedChest", desc: "Runs when a player opens a chest (Chest/Moonstone Chest).", code: "onPlayerOpenedChest = (playerId, x, y, z) => {}" },
+            { name: "onWorldChangeBlock", desc: "Detects block changes caused by the world (such as plants growing).", code: "onWorldChangeBlock = (x, y, z, fromBlock, toBlock) => {}" },
+            { name: "onEntityCollision", desc: "Detects collisions between entities/players.", code: "onEntityCollision = (eId, otherEId) => {}" },
+            { name: "onPlayerSpawnMob", desc: "Runs when a player spawns a mob (e.g., using a spawn orb).", code: "onPlayerSpawnMob = (playerId, mobId, mobType) => {}" },
+            { name: "onPlayerFinishQTE", desc: "Detects the result of a Quick Time Event (success/failure).", code: "onPlayerFinishQTE = (playerId, qteId, result) => {}" },
+            { name: "onPlayerBoughtShopItem", desc: "Detects when a player buys something from the shop menu.", code: "onPlayerBoughtShopItem = (playerId, categoryKey, itemKey) => {}" },
+            { name: "doPeriodicSave", desc: "Special timing for periodically saving database data.", code: "doPeriodicSave = () => {}" }
+        ];
+
+        function renderAll(filter = "") {
+            const container = document.getElementById('cbList');
+            const countDisplay = document.getElementById('countDisplay');
+            container.innerHTML = "";
+            let found = 0;
+
+            callbacks.forEach(cb => {
+                if(cb.name.toLowerCase().includes(filter.toLowerCase()) || cb.desc.toLowerCase().includes(filter.toLowerCase())) {
+                    found++;
+                    container.innerHTML += `
+                        <div class="callback-card">
+                            <div class="cb-name">${cb.name}</div>
+                            <span class="cb-desc">${cb.desc}</span>
+                            <pre>${cb.code}</pre>
+                        </div>
+                    `;
+                }
+            });
+            countDisplay.innerText = `Found ${found} Callbacks`;
+        }
+
+        function filterContent() { renderAll(document.getElementById('searchInput').value); }
+        renderAll();
+    </script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bloxd.io Master Entity & Mobs Hub</title>
+    <style>
+        body { font-family: 'Consolas', monospace; background-color: #0f0f0f; color: #e0e0e0; margin: 0; display: flex; }
+        .sidebar { width: 250px; background: #1a1a1a; height: 100vh; position: fixed; border-right: 2px solid #03a9f4; padding: 20px; box-sizing: border-box; }
+        .back-btn { display: block; background: #03a9f4; color: #000; text-decoration: none; padding: 12px; border-radius: 4px; font-weight: bold; text-align: center; margin-bottom: 20px; }
+        .main-content { margin-left: 250px; padding: 20px; width: 100%; }
+        h1 { color: #03a9f4; border-bottom: 2px solid #333; padding-bottom: 10px; }
+        h2 { color: #4ec9b0; margin-top: 30px; }
+        pre { background: #1e1e1e; padding: 15px; border-radius: 5px; color: #9cdcfe; border: 1px solid #333; overflow-x: auto; font-size: 0.85rem; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; background: #181818; }
+        th, td { border: 1px solid #333; padding: 12px; text-align: left; }
+        th { background: #252526; color: #03a9f4; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 15px; margin-top: 20px; }
+        .card { background: #1e1e1e; padding: 15px; border-radius: 4px; border: 1px solid #2d2d2d; }
+        .card strong { color: #ff9800; display: block; margin-bottom: 5px; }
+        .card span { color: #8bc34a; font-size: 0.85rem; }
+        .search-box { width: 100%; padding: 12px; background: #252526; border: 1px solid #333; color: #03a9f4; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="index.html" class="back-btn">🏠 Back To Hub</a>
+        <p style="font-size: 0.8rem; color: #666;">Navigation:<br>Entity & Mobs</p>
+    </div>
+
+    <div class="main-content">
+        <h1>Master Entity & Mobs Hub</h1>
+        
+        <section id="api-methods">
+            <h2>1. Mob API Methods</h2>
+            <pre>api.getDefaultMobSetting(mobType, setting)\napi.setDefaultMobSetting(mobType, setting, value)\napi.getMobSetting(mobId, setting, returnDefaultIfNotOverridden)\napi.setMobSetting(mobId, setting, value)\napi.getMobAiState(mobId)\napi.setMobAiState(mobId, state, params)</pre>
+        </section>
+
+        <section id="variations">
+            <h2>2. Complete Mobs List</h2>
+            <input type="text" id="mobSearch" class="search-box" placeholder="Search mobs..." onkeyup="filterMobs()">
+            <div class="grid" id="mobGrid"></div>
+        </section>
+    </div>
+
+    <script>
+        const fullMobData = [{ name: "Pig", vars: "default" }, { name: "Cow", vars: "default, cream" }, { name: "Sheep", vars: "default, black, red, orange, pink, purple, yellow, blue, brown, cyan, gray, green, lightBlue, lightGray, lime, magenta" }, { name: "Horse", vars: "default, black, brown, cream" }, { name: "Cave Golem", vars: "default, iron" }, { name: "Draugr Zombie", vars: "default, longHairChestplate, longHairClothed, shortHairClothed" }, { name: "Draugr Skeleton", vars: "default" }, { name: "Frost Golem", vars: "default" }, { name: "Frost Zombie", vars: "default, longHairChestplate, shortHairClothed" }, { name: "Frost Skeleton", vars: "default" }, { name: "Draugr Knight", vars: "default" }, { name: "Wolf", vars: "default, white, brown, grey, spectral" }, { name: "Bear", vars: "default" }, { name: "Deer", vars: "default" }, { name: "Stag", vars: "default" }, { name: "Gold Watermelon Stag", vars: "default" }, { name: "Gorilla", vars: "default" }, { name: "Wildcat", vars: "default, tabby, grey, black, calico, siamese, leopard" }, { name: "Magma Golem", vars: "default" }, { name: "Draugr Huntress", vars: "default, chainmail" }, { name: "Spirit Golem", vars: "default" }, { name: "Spirit Wolf", vars: "default" }, { name: "Spirit Bear", vars: "default" }, { name: "Spirit Stag", vars: "default" }, { name: "Spirit Gorilla", vars: "default" }, { name: "Draugr Warper", vars: "default" }, { name: "Frost Wraith", vars: "default" }, { name: "Draugr Reaver", vars: "default" }, { name: "NPC", vars: "default, emma, leo, isabel, sanjay, imara, enoch, sara, carmen" }];
+        function renderMobs(filter = "") {
+            const grid = document.getElementById('mobGrid');
+            grid.innerHTML = "";
+            fullMobData.forEach(mob => {
+                if (mob.name.toLowerCase().includes(filter.toLowerCase()) || mob.vars.toLowerCase().includes(filter.toLowerCase())) {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `<strong>${mob.name}</strong><span>Variations: ${mob.vars}</span>`;
+                    grid.appendChild(card);
+                }
+            });
+        }
+        function filterMobs() { renderMobs(document.getElementById('mobSearch').value); }
+        renderMobs();
+    </script>
+</body>
+</html>

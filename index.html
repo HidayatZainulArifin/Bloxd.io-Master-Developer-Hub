@@ -1,0 +1,229 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloxd.io Master Developer Hub</title>
+    <style>
+        /* UI STYLING - TYPICAL DEVELOPER DARK MODE THEME */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            margin: 0;
+            display: flex;
+        }
+        
+        /* SIDEBAR */
+        nav {
+            width: 260px;
+            background-color: #252526;
+            height: 100vh;
+            position: fixed;
+            padding: 20px;
+            border-right: 1px solid #333;
+            overflow-y: auto;
+        }
+
+        nav h2 { color: #569cd6; font-size: 1.2rem; margin-bottom: 20px; }
+        nav a {
+            display: block;
+            color: #ccc;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+        nav a:hover { color: #fff; background: #37373d; }
+        
+        /* SIDEBAR NAV BUTTONS */
+        .side-btn { border: 1px solid #444; margin-top: 10px; font-weight: bold; }
+        .btn-blocks { border-left: 4px solid #4ec9b0; }
+        .btn-items { border-left: 4px solid #ff9800; }
+        .btn-mobs { border-left: 4px solid #03a9f4; }
+        .btn-skins { border-left: 4px solid #bb86fc; }
+        .btn-sounds { border-left: 4px solid #ff4444; } /* Red color for Sounds */
+
+        /* MAIN CONTENT */
+        main {
+            margin-left: 300px;
+            padding: 40px;
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        /* DOCUMENTATION HUB BUTTONS */
+        .doc-hub {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 50px;
+            background: #2d2d2d;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #444;
+        }
+
+        .hub-btn {
+            padding: 15px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 6px;
+            color: white;
+            transition: transform 0.2s, filter 0.2s;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .hub-btn span { font-size: 0.7rem; font-weight: normal; opacity: 0.8; }
+        .hub-btn:hover { transform: translateY(-3px); filter: brightness(1.2); }
+
+        /* DASHBOARD BUTTON COLORS */
+        .bg-blocks { background-color: #007a61; border: 1px solid #4ec9b0; }
+        .bg-items { background-color: #995c00; border: 1px solid #ff9800; }
+        .bg-mobs { background-color: #005682; border: 1px solid #03a9f4; }
+        .bg-skins { background-color: #5d3591; border: 1px solid #bb86fc; }
+        .bg-sounds { background-color: #820000; border: 1px solid #ff4444; }
+
+        /* API & CALLBACKS FEATURES */
+        .section { margin-bottom: 60px; }
+        h1 { color: #ce9178; }
+        h2 { color: #4ec9b0; border-bottom: 2px solid #4ec9b0; padding-bottom: 5px; margin-top: 30px; }
+        
+        .search-box {
+            width: 100%; padding: 12px; margin-bottom: 20px;
+            background: #333; border: 1px solid #555; color: white; border-radius: 5px;
+        }
+
+        pre {
+            background-color: #000; padding: 15px; border-radius: 5px;
+            border-left: 5px solid #007acc; overflow-x: auto; color: #9cdcfe;
+        }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        table, th, td { border: 1px solid #444; }
+        th, td { padding: 10px; text-align: left; }
+        th { background-color: #333; }
+
+        .tag { background: #444; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; display: inline-block; margin: 2px; }
+		.btn-logic { border-left: 4px solid #ffca28; }
+        .bg-logic { background-color: #947600; border: 1px solid #ffca28; }
+    </style>
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <nav>
+        <h2>Bloxd Dev Hub</h2>
+        <a href="#intro">🏠 Dashboard</a>
+        
+        <hr style="border: 0; border-top: 1px solid #444; margin: 15px 0;">
+        <a href="blocks.html" class="side-btn btn-blocks">📦 Blocks Doc</a>
+        <a href="items.html" class="side-btn btn-items">⚔️ Items Doc</a>
+        <a href="entity-mobs.html" class="side-btn btn-mobs">👾 Mobs Doc</a>
+        <a href="skins-poses.html" class="side-btn btn-skins">👕 Skins Doc</a>
+        <a href="sounds-music.html" class="side-btn btn-sounds">🔊 Sounds & Music Doc</a>
+        <a href="callbacks.html" class="side-btn btn-logic">⚡ Callbacks Doc</a> <!-- NEW BUTTON -->
+        <hr style="border: 0; border-top: 1px solid #444; margin: 15px 0;">
+
+        <a href="#api">API Reference</a>
+        <a href="#callbacks">Callbacks</a>
+        <a href="#blocks-preview">Quick Search</a>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main>
+        <section id="intro" class="section">
+            <h1>Bloxd.io Master Developer Hub</h1>
+            <p>Welcome to the Bloxd.io World Code documentation hub. All API, Blocks, Items, and Mobs information is available here.</p>
+            
+            <!-- THE NEW BUTTONS HUB -->
+            <div class="doc-hub">
+                <a href="blocks.html" class="hub-btn bg-blocks">
+                    Blocks Document
+                    <span>1016 Total Blocks & Meta</span>
+                </a>
+                <a href="items.html" class="hub-btn bg-items">
+                    Items Document
+                    <span>Tools, Weapons & Consumables</span>
+                </a>
+                <a href="entity-mobs.html" class="hub-btn bg-mobs">
+                    Entity & Mobs Document
+                    <span>AI States & Mob Variations</span>
+                </a>
+                <a href="skins-poses.html" class="hub-btn bg-skins">
+                    Skins & Poses Document
+                    <span>Character Customization</span>
+                </a>
+                <a href="sounds-music.html" class="hub-btn bg-sounds">
+                    Sounds & Music Document
+                    <span>337 SFX & 44 Songs</span>
+                </a>
+                <!-- NEW BUTTON -->
+                <a href="callbacks.html" class="hub-btn bg-logic">
+                    Callbacks Document
+                    <span>50+ Game Events & Logic</span>
+                </a>
+            </div>
+
+            <div style="background: #3e3e42; padding: 15px; border-radius: 5px; border-left: 5px solid #ce9178;">
+                <strong>💡 Reminder:</strong> You are using the Notepad++ Editor version. Don't forget to save all files in the same folder for seamless navigation.
+            </div>
+        </section>
+
+        <section id="api" class="section">
+            <h2>API Reference (Basic)</h2>
+            <table>
+                <tr><th>Function</th><th>Usage</th></tr>
+                <tr><td><code>api.getPosition(myId)</code></td><td>Gets the current player's position.</td></tr>
+                <tr><td><code>api.sendMessage(myId, "hello")</code></td><td>Sends a private chat message.</td></tr>
+                <tr><td><code>api.broadcastMessage("info")</code></td><td>Sends a message to everyone.</td></tr>
+                <tr><td><code>api.setBlock(x, y, z, "Dirt")</code></td><td>Places a block instantly.</td></tr>
+            </table>
+            <h3>Snippet Example:</h3>
+            <pre>// Disable player gravity (high jump)
+api.setVelocity(myId, 0, 15, 0)</pre>
+        </section>
+
+        <section id="callbacks" class="section">
+            <h2>Callbacks (Events)</h2>
+            <p>Code that runs automatically during specific events:</p>
+            <ul>
+                <li><strong>onPlayerJoin</strong>: Runs when a person joins the server.</li>
+                <li><strong>onPlayerChat</strong>: Runs when someone types in chat.</li>
+                <li><strong>onBlockStand</strong>: Runs when a player steps on a specific block.</li>
+                <li><strong>onPlayerKilledOtherPlayer</strong>: Runs when a kill occurs.</li>
+            </ul>
+        </section>
+
+        <section id="blocks-preview" class="section">
+            <h2>Quick Search Preview</h2>
+            <input type="text" id="searchInput" class="search-box" placeholder="Search for blocks or popular items..." onkeyup="filterData()">
+            <div id="dataList">
+                <span class="tag">Dirt</span> <span class="tag">Stone</span> <span class="tag">Diamond Ore</span> 
+                <span class="tag">Moonstone</span> <span class="tag">Water</span> <span class="tag">Lava</span>
+                <span class="tag">Gold Bar</span> <span class="tag">Iron Pickaxe</span> <span class="tag">AK-47</span>
+                <span class="tag">Lucky Block</span> <span class="tag">Portal</span>
+            </div>
+        </section>
+
+        <footer style="margin-top: 100px; border-top: 1px solid #333; padding-top: 20px; font-size: 0.8rem; color: #555; text-align: center;">
+            Bloxd.io Master Developer Wiki &copy; 2024 - Created for Notepad++ Users
+        </footer>
+    </main>
+
+    <script>
+        // Simple tag search feature
+        function filterData() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let tags = document.getElementsByClassName('tag');
+            for (let i = 0; i < tags.length; i++) {
+                tags[i].style.display = tags[i].innerHTML.toLowerCase().includes(input) ? "" : "none";
+            }
+        }
+    </script>
+</body>
+</html>
