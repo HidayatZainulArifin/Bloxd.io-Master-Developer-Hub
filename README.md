@@ -53,7 +53,7 @@ Do you have an idea to improve this website? Let's collaborate!
 - **Bloxdhub:** Find me **@FallenNightzVk**. Create a post with your suggestions!
 - **Discord:** [Join Master Developer Discord](https://discord.gg/mYxAzGAAhg)
 - **Official Bloxd:** [Official Bloxd.io Discord](https://discord.gg/vwMp5y25RX)
-- **The Website:**[Bloxd.io Master Developer Hub Click Here to Go To The Website!](https://hidayatzainularifin.github.io/Bloxd.io-Master-Developer-Hub/)
+- **The Website:** [Bloxd.io Master Developer Hub Click Here to Go To The Website!](https://hidayatzainularifin.github.io/Bloxd.io-Master-Developer-Hub/)
 
 ---
 
