@@ -1,230 +1,222 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bloxd.io Master Developer Hub</title>
     <style>
-        /* UI STYLING - TYPICAL DEVELOPER DARK MODE THEME */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #1e1e1e;
-            color: #d4d4d4;
-            margin: 0;
-            display: flex;
-        }
+        /* CSS THEME HUB */
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #1e1e1e; color: #d4d4d4; margin: 0; display: flex; }
         
-        /* SIDEBAR */
-        nav {
-            width: 260px;
-            background-color: #252526;
-            height: 100vh;
-            position: fixed;
-            padding: 20px;
-            border-right: 1px solid #333;
-            overflow-y: auto;
-        }
-
+        nav { width: 260px; background-color: #252526; height: 100vh; position: fixed; padding: 20px; border-right: 1px solid #333; overflow-y: auto; }
         nav h2 { color: #569cd6; font-size: 1.2rem; margin-bottom: 20px; }
-        nav a {
-            display: block;
-            color: #ccc;
-            text-decoration: none;
-            padding: 10px;
-            border-radius: 4px;
-            margin-bottom: 5px;
-            font-size: 0.9rem;
-        }
+        nav a { display: block; color: #ccc; text-decoration: none; padding: 10px; border-radius: 4px; margin-bottom: 5px; font-size: 0.9rem; }
         nav a:hover { color: #fff; background: #37373d; }
         
-        /* SIDEBAR NAV BUTTONS */
         .side-btn { border: 1px solid #444; margin-top: 10px; font-weight: bold; }
         .btn-blocks { border-left: 4px solid #4ec9b0; }
         .btn-items { border-left: 4px solid #ff9800; }
         .btn-mobs { border-left: 4px solid #03a9f4; }
         .btn-skins { border-left: 4px solid #bb86fc; }
-        .btn-sounds { border-left: 4px solid #ff4444; } /* Red color for Sounds */
+        .btn-sounds { border-left: 4px solid #ff4444; }
+        .btn-logic { border-left: 4px solid #ffca28; }
+        .btn-particles { border-left: 4px solid #00bcd4; }
+        .btn-options { border-left: 4px solid #2ecc71; }
+        .btn-qte { border-left: 4px solid #ff4081; }
+        .btn-icons { border-left: 4px solid #00d2ff; }
 
-        /* MAIN CONTENT */
-        main {
-            margin-left: 300px;
-            padding: 40px;
-            max-width: 1000px;
-            width: 100%;
-        }
+        main { margin-left: 300px; padding: 40px; max-width: 1000px; width: 100%; }
 
-        /* DOCUMENTATION HUB BUTTONS */
-        .doc-hub {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 50px;
-            background: #2d2d2d;
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid #444;
-        }
-
-        .hub-btn {
-            padding: 15px;
-            text-align: center;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 6px;
-            color: white;
-            transition: transform 0.2s, filter 0.2s;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
+        .doc-hub { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 50px; background: #2d2d2d; padding: 20px; border-radius: 8px; border: 1px solid #444; }
+        .hub-btn { padding: 15px; text-align: center; text-decoration: none; font-weight: bold; border-radius: 6px; color: white; transition: 0.2s; display: flex; flex-direction: column; gap: 5px; }
         .hub-btn span { font-size: 0.7rem; font-weight: normal; opacity: 0.8; }
         .hub-btn:hover { transform: translateY(-3px); filter: brightness(1.2); }
 
-        /* DASHBOARD BUTTON COLORS */
-        .bg-blocks { background-color: #007a61; border: 1px solid #4ec9b0; }
-        .bg-items { background-color: #995c00; border: 1px solid #ff9800; }
-        .bg-mobs { background-color: #005682; border: 1px solid #03a9f4; }
-        .bg-skins { background-color: #5d3591; border: 1px solid #bb86fc; }
-        .bg-sounds { background-color: #820000; border: 1px solid #ff4444; }
+        .bg-blocks { background-color: #007a61; }
+        .bg-items { background-color: #995c00; }
+        .bg-mobs { background-color: #005682; }
+        .bg-skins { background-color: #5d3591; }
+        .bg-sounds { background-color: #820000; }
+        .bg-logic { background-color: #947600; }
+        .bg-particles { background-color: #007685; }
+        .bg-options { background-color: #1b5e20; }
+        .bg-qte { background-color: #880e4f; }
+        .bg-icons { background-color: #006b82; }
 
-        /* API & CALLBACKS FEATURES */
         .section { margin-bottom: 60px; }
         h1 { color: #ce9178; }
         h2 { color: #4ec9b0; border-bottom: 2px solid #4ec9b0; padding-bottom: 5px; margin-top: 30px; }
         
-        .search-box {
-            width: 100%; padding: 12px; margin-bottom: 20px;
-            background: #333; border: 1px solid #555; color: white; border-radius: 5px;
-        }
-
-        pre {
-            background-color: #000; padding: 15px; border-radius: 5px;
-            border-left: 5px solid #007acc; overflow-x: auto; color: #9cdcfe;
-        }
-
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        table, th, td { border: 1px solid #444; }
-        th, td { padding: 10px; text-align: left; }
-        th { background-color: #333; }
-
-        .tag { background: #444; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; display: inline-block; margin: 2px; }
-		.btn-logic { border-left: 4px solid #ffca28; }
-        .bg-logic { background-color: #947600; border: 1px solid #ffca28; }
+        pre { background-color: #000; padding: 15px; border-radius: 5px; border-left: 5px solid #007acc; overflow-x: auto; color: #9cdcfe; font-size: 0.85rem; }
+        .discord-box { background: #5865F2; color: white; padding: 15px; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; font-weight: bold; margin-top: 20px; }
+        .discord-box:hover { filter: brightness(1.1); }
     </style>
 </head>
 <body>
 
-    <!-- SIDEBAR -->
     <nav>
         <h2>Bloxd Dev Hub</h2>
         <a href="#intro">🏠 Dashboard</a>
-        
         <hr style="border: 0; border-top: 1px solid #444; margin: 15px 0;">
         <a href="blocks.html" class="side-btn btn-blocks">📦 Blocks Doc</a>
         <a href="items.html" class="side-btn btn-items">⚔️ Items Doc</a>
         <a href="entity-mobs.html" class="side-btn btn-mobs">👾 Mobs Doc</a>
         <a href="skins-poses.html" class="side-btn btn-skins">👕 Skins Doc</a>
-        <a href="sounds-music.html" class="side-btn btn-sounds">🔊 Sounds & Music Doc</a>
-        <a href="callbacks.html" class="side-btn btn-logic">⚡ Callbacks Doc</a> <!-- NEW BUTTON -->
+        <a href="sounds-music.html" class="side-btn btn-sounds">🔊 Sounds Doc</a>
+        <a href="callbacks.html" class="side-btn btn-logic">⚡ Callbacks Doc</a>
+        <a href="particles.html" class="side-btn btn-particles">✨ Particles Doc</a>
+        <a href="client-options.html" class="side-btn btn-options">⚙️ Options Doc</a>
+        <a href="qtes.html" class="side-btn btn-qte">🎯 QTEs Doc</a>
+        <a href="icons.html" class="side-btn btn-icons">🖼️ Icons Doc</a>
         <hr style="border: 0; border-top: 1px solid #444; margin: 15px 0;">
-
-        <a href="#api">API Reference</a>
-        <a href="#callbacks">Callbacks</a>
-        <a href="#blocks-preview">Quick Search</a>
+        <a href="https://discord.gg/vwMp5y25RX" target="_blank" style="color: #5865F2;">💬 Bloxd Discord</a>
     </nav>
 
-    <!-- MAIN CONTENT -->
     <main>
         <section id="intro" class="section">
             <h1>Bloxd.io Master Developer Hub</h1>
-            <p>Welcome to the Bloxd.io World Code documentation hub. All API, Blocks, Items, and Mobs information is available here.</p>
-            
-            <!-- THE NEW BUTTONS HUB -->
             <div class="doc-hub">
-                <a href="blocks.html" class="hub-btn bg-blocks">
-                    Blocks Document
-                    <span>1016 Total Blocks & Meta</span>
-                </a>
-                <a href="items.html" class="hub-btn bg-items">
-                    Items Document
-                    <span>Tools, Weapons & Consumables</span>
-                </a>
-                <a href="entity-mobs.html" class="hub-btn bg-mobs">
-                    Entity & Mobs Document
-                    <span>AI States & Mob Variations</span>
-                </a>
-                <a href="skins-poses.html" class="hub-btn bg-skins">
-                    Skins & Poses Document
-                    <span>Character Customization</span>
-                </a>
-                <a href="sounds-music.html" class="hub-btn bg-sounds">
-                    Sounds & Music Document
-                    <span>337 SFX & 44 Songs</span>
-                </a>
-                <!-- NEW BUTTON -->
-                <a href="callbacks.html" class="hub-btn bg-logic">
-                    Callbacks Document
-                    <span>50+ Game Events & Logic</span>
-                </a>
-            </div>
-
-            <div style="background: #3e3e42; padding: 15px; border-radius: 5px; border-left: 5px solid #ce9178;">
-                <strong>💡 Reminder:</strong> You are using the Notepad++ Editor version. Don't forget to save all files in the same folder for seamless navigation.
+                <a href="blocks.html" class="hub-btn bg-blocks">Blocks Doc<span>1016 Blocks</span></a>
+                <a href="items.html" class="hub-btn bg-items">Items Doc<span>Full Tools & Weapons</span></a>
+                <a href="entity-mobs.html" class="hub-btn bg-mobs">Mobs Doc<span>AI & Variations</span></a>
+                <a href="skins-poses.html" class="hub-btn bg-skins">Skins Doc<span>Customization</span></a>
+                <a href="sounds-music.html" class="hub-btn bg-sounds">Sounds Doc<span>337 SFX & 44 Music</span></a>
+                <a href="callbacks.html" class="hub-btn bg-logic">Callbacks Doc<span>50+ Game Events</span></a>
+                <a href="particles.html" class="hub-btn bg-particles">Particles Doc<span>Visual Effects</span></a>
+                <a href="client-options.html" class="hub-btn bg-options">Options Doc<span>Player Settings</span></a>
+                <a href="qtes.html" class="hub-btn bg-qte">QTEs Doc<span>Mini-games</span></a>
+                <a href="icons.html" class="hub-btn bg-icons">Icons Doc<span>Chat & UI Icons</span></a>
             </div>
         </section>
 
-        <section id="api" class="section">
-            <h2>API Reference (Basic)</h2>
-            <table>
-                <tr><th>Function</th><th>Usage</th></tr>
-                <tr><td><code>api.getPosition(myId)</code></td><td>Gets the current player's position.</td></tr>
-                <tr><td><code>api.sendMessage(myId, "hello")</code></td><td>Sends a private chat message.</td></tr>
-                <tr><td><code>api.broadcastMessage("info")</code></td><td>Sends a message to everyone.</td></tr>
-                <tr><td><code>api.setBlock(x, y, z, "Dirt")</code></td><td>Places a block instantly.</td></tr>
-            </table>
-            <h3>Snippet Example:</h3>
-            <pre>// Disable player gravity (high jump)
-api.setVelocity(myId, 0, 15, 0)</pre>
-        </section>
-
-        <section id="callbacks" class="section">
-            <h2>Callbacks (Events)</h2>
-            <p>Code that runs automatically during specific events:</p>
-            <ul>
-                <li><strong>onPlayerJoin</strong>: Runs when a person joins the server.</li>
-                <li><strong>onPlayerChat</strong>: Runs when someone types in chat.</li>
-                <li><strong>onBlockStand</strong>: Runs when a player steps on a specific block.</li>
-                <li><strong>onPlayerKilledOtherPlayer</strong>: Runs when a kill occurs.</li>
-            </ul>
-        </section>
-
-        <section id="blocks-preview" class="section">
-            <h2>Quick Search Preview</h2>
-            <input type="text" id="searchInput" class="search-box" placeholder="Search for blocks or popular items..." onkeyup="filterData()">
-            <div id="dataList">
-                <span class="tag">Dirt</span> <span class="tag">Stone</span> <span class="tag">Diamond Ore</span> 
-                <span class="tag">Moonstone</span> <span class="tag">Water</span> <span class="tag">Lava</span>
-                <span class="tag">Gold Bar</span> <span class="tag">Iron Pickaxe</span> <span class="tag">AK-47</span>
-                <span class="tag">Lucky Block</span> <span class="tag">Portal</span>
+        <section id="code-api" class="section">
+            <section id="code-api" class="section">
+            <h2>🚀 Code API Master Reference</h2>
+            
+            <!-- IMPORTANT NOTES BOX -->
+            <div style="background: #2d2d2d; padding: 20px; border-radius: 8px; border: 1px solid #444; margin-bottom: 30px;">
+                <h3 style="color: #4fc3f7; margin-top: 0;">📌 Essential Basics</h3>
+                <ul style="line-height: 1.8;">
+                    <li><strong>Player Identity:</strong> Use <code>myId</code> or <code>playerId</code> to refer to the person running the code.</li>
+                    <li><strong>Coordinates:</strong> <code>thisPos</code> holds the [x, y, z] location of the current code block.</li>
+                    <li><strong>Debugging:</strong> Use <code>api.log("message")</code> to see info in the F8 console.</li>
+                    <li><strong>Comments:</strong> ONLY use <code>/* my comment */</code>. The <code>//</code> symbol is <strong>NOT supported</strong> and will break your code.</li>
+                    <li><strong>Time:</strong> Use <code>Date.now()</code> to get the current time in milliseconds.</li>
+                </ul>
             </div>
+
+            <h3 style="color: #4ec9b0;">🛠️ API Function Categories</h3>
+            <p>Click a category below to see the available functions:</p>
+
+            <!-- PLAYER & POSITION -->
+            <details style="background: #252526; padding: 10px; border-radius: 5px; margin-bottom: 10px; border: 1px solid #333;">
+                <summary style="cursor: pointer; font-weight: bold; color: #ffca28;">📍 Player & Position</summary>
+                <table style="margin-top: 10px; width: 100%;">
+                    <tr><th>Method</th><th>Description</th></tr>
+                    <tr><td><code>api.getPosition(id)</code></td><td>Get the [x, y, z] position of a player.</td></tr>
+                    <tr><td><code>api.setPosition(id, x, y, z)</code></td><td>Teleport a player to specific coordinates.</td></tr>
+                    <tr><td><code>api.getPlayerIds()</code></td><td>Get a list of every player currently in the game.</td></tr>
+                    <tr><td><code>api.isMobile(id)</code></td><td>Check if the player is using a Phone or PC.</td></tr>
+                    <tr><td><code>api.setCameraDirection(id, [x,y,z])</code></td><td>Force the player to look in a specific direction.</td></tr>
+                </table>
+            </details>
+
+            <!-- HEALTH & COMBAT -->
+            <details style="background: #252526; padding: 10px; border-radius: 5px; margin-bottom: 10px; border: 1px solid #333;">
+                <summary style="cursor: pointer; font-weight: bold; color: #f44336;">❤️ Health & Combat</summary>
+                <table style="margin-top: 10px; width: 100%;">
+                    <tr><th>Method</th><th>Description</th></tr>
+                    <tr><td><code>api.getHealth(id)</code></td><td>Check player health (usually 0 to 100).</td></tr>
+                    <tr><td><code>api.setHealth(id, value)</code></td><td>Instantly change player health.</td></tr>
+                    <tr><td><code>api.applyHealthChange(id, amt)</code></td><td>Damage (-amt) or Heal (+amt) a player.</td></tr>
+                    <tr><td><code>api.killLifeform(id)</code></td><td>Instantly kill a player or a mob.</td></tr>
+                    <tr><td><code>api.getShieldAmount(id)</code></td><td>Check how much armor shield a player has.</td></tr>
+                    <tr><td><code>api.forceRespawn(id)</code></td><td>Force the player to go back to spawn.</td></tr>
+                </table>
+            </details>
+
+            <!-- BLOCKS & WORLD -->
+            <details style="background: #252526; padding: 10px; border-radius: 5px; margin-bottom: 10px; border: 1px solid #333;">
+                <summary style="cursor: pointer; font-weight: bold; color: #4caf50;">🌍 Blocks & World</summary>
+                <table style="margin-top: 10px; width: 100%;">
+                    <tr><th>Method</th><th>Description</th></tr>
+                    <tr><td><code>api.setBlock(x, y, z, "Name")</code></td><td>Place a single block at a position.</td></tr>
+                    <tr><td><code>api.setBlockRect(pos1, pos2, "Name")</code></td><td>Fill a whole area with blocks.</td></tr>
+                    <tr><td><code>api.getBlock(x, y, z)</code></td><td>Get the name of the block at that position.</td></tr>
+                    <tr><td><code>api.getBlockSolidity(x, y, z)</code></td><td>Check if a block is solid (can walk on it).</td></tr>
+                    <tr><td><code>api.raycastForBlock(pos, dir)</code></td><td>Find the block a player is looking at.</td></tr>
+                </table>
+            </details>
+
+            <!-- ITEMS & INVENTORY -->
+            <details style="background: #252526; padding: 10px; border-radius: 5px; margin-bottom: 10px; border: 1px solid #333;">
+                <summary style="cursor: pointer; font-weight: bold; color: #ff9800;">🎒 Items & Inventory</summary>
+                <table style="margin-top: 10px; width: 100%;">
+                    <tr><th>Method</th><th>Description</th></tr>
+                    <tr><td><code>api.giveItem(id, "Name", count)</code></td><td>Add items to player's inventory.</td></tr>
+                    <tr><td><code>api.hasItem(id, "Name")</code></td><td>Check if player has a specific item.</td></tr>
+                    <tr><td><code>api.clearInventory(id)</code></td><td>Remove everything from player's inventory.</td></tr>
+                    <tr><td><code>api.createItemDrop(x, y, z, "Name")</code></td><td>Spawn a floating item on the ground.</td></tr>
+                    <tr><td><code>api.getHeldItem(id)</code></td><td>Check what item the player is currently holding.</td></tr>
+                </table>
+            </details>
+
+            <!-- MESSAGING & UI -->
+            <details style="background: #252526; padding: 10px; border-radius: 5px; margin-bottom: 10px; border: 1px solid #333;">
+                <summary style="cursor: pointer; font-weight: bold; color: #03a9f4;">🖥️ UI & Messaging</summary>
+                <table style="margin-top: 10px; width: 100%;">
+                    <tr><th>Method</th><th>Description</th></tr>
+                    <tr><td><code>api.sendMessage(id, "text")</code></td><td>Send a private chat message to a player.</td></tr>
+                    <tr><td><code>api.broadcastMessage("text")</code></td><td>Send a message to EVERYONE in the world.</td></tr>
+                    <tr><td><code>api.sendHitmarker(id, isCrit)</code></td><td>Show the "X" hit effect on a player's screen.</td></tr>
+                    <tr><td><code>api.progressBarUpdate(id, 0.5, 1000)</code></td><td>Show a progress bar on the bottom right.</td></tr>
+                    <tr><td><code>api.setDirectionArrow(id, "id", pos)</code></td><td>Show an arrow pointing to a location.</td></tr>
+                </table>
+            </details>
+
+            <!-- PHYSICS & MOBS -->
+            <details style="background: #252526; padding: 10px; border-radius: 5px; margin-bottom: 10px; border: 1px solid #333;">
+                <summary style="cursor: pointer; font-weight: bold; color: #ff4444;">👾 Mobs & Physics</summary>
+                <table style="margin-top: 10px; width: 100%;">
+                    <tr><th>Method</th><th>Description</th></tr>
+                    <tr><td><code>api.attemptSpawnMob("Type", x, y, z)</code></td><td>Spawn a pig, cow, zombie, etc.</td></tr>
+                    <tr><td><code>api.applyImpulse(id, x, y, z)</code></td><td>Push a player/entity in a direction.</td></tr>
+                    <tr><td><code>api.setVelocity(id, x, y, z)</code></td><td>Instantly set the movement speed/direction.</td></tr>
+                    <tr><td><code>api.getMobIds()</code></td><td>Get a list of all active mobs in the world.</td></tr>
+                    <tr><td><code>api.despawnMob(mobId)</code></td><td>Remove a mob from the world.</td></tr>
+                </table>
+            </details>
+
+            <h3 style="color: #ce9178; margin-top: 40px;">💡 Ready-to-Use Examples</h3>
+            <p>Copy and paste these snippets into your Code Blocks:</p>
+            <pre>
+/* 1. Healing Pad: Heal player when they stand on this block */
+onBlockStand = (playerId, x, y, z, blockName) => {
+    if (x == thisPos[0] && z == thisPos[2]) {
+        api.applyHealthChange(playerId, 5);
+        api.sendMessage(playerId, "You are being healed!");
+    }
+}
+
+/* 2. Super Jump: Launch player into the air */
+api.setVelocity(myId, 0, 15, 0);
+
+/* 3. Global Announcement */
+api.broadcastMessage("A new round is starting!", { color: "orange" });
+            </pre>
+        </section>
+
+        <section>
+            <h2>Official Resources</h2>
+            <a href="https://discord.gg/vwMp5y25RX" class="discord-box" target="_blank">
+                Join Official Bloxd Discord
+            </a>
         </section>
 
         <footer style="margin-top: 100px; border-top: 1px solid #333; padding-top: 20px; font-size: 0.8rem; color: #555; text-align: center;">
-            Bloxd.io Master Developer Wiki &copy; 2026 - Created for Notepad++ Users
-        </footer>
-    </main>
+    Bloxd.io Master Developer Wiki &copy; <span id="year"></span>
+</footer>
 
-    <script>
-        // Simple tag search feature
-        function filterData() {
-            let input = document.getElementById('searchInput').value.toLowerCase();
-            let tags = document.getElementsByClassName('tag');
-            for (let i = 0; i < tags.length; i++) {
-                tags[i].style.display = tags[i].innerHTML.toLowerCase().includes(input) ? "" : "none";
-            }
-        }
-    </script>
-</body>
-
-</html>
+<script>
+    document.getElementById("year").innerHTML = new Date().getFullYear();
+</script>

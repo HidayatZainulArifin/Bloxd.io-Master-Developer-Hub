@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bloxd.io Master Particles Reference</title>
+    <style>
+        /* CSS THEME PARTICLES (CYAN/TEAL) */
+        body { font-family: 'Consolas', 'Monaco', monospace; background-color: #0d0d0d; color: #e0e0e0; margin: 0; display: flex; line-height: 1.5; }
+        
+        /* SIDEBAR */
+        .sidebar { width: 250px; background: #1a1a1a; height: 100vh; position: fixed; border-right: 2px solid #00bcd4; padding: 20px; box-sizing: border-box; }
+        .back-btn { display: block; background: #00bcd4; color: #000; text-decoration: none; padding: 12px; border-radius: 4px; font-weight: bold; text-align: center; margin-bottom: 20px; transition: 0.2s; }
+        .back-btn:hover { background: #00acc1; }
+
+        /* MAIN CONTENT */
+        .main-content { margin-left: 250px; padding: 20px; width: 100%; }
+        h1 { color: #00bcd4; border-bottom: 2px solid #333; padding-bottom: 10px; margin: 0; }
+        h2 { color: #80deea; margin-top: 30px; border-left: 4px solid #00bcd4; padding-left: 10px; }
+        
+        /* SEARCH BOX */
+        .search-box { width: 100%; padding: 12px; background: #1e1e1e; border: 1px solid #333; color: #00bcd4; border-radius: 4px; font-size: 1.1em; outline: none; margin: 15px 0; }
+        
+        /* CODE BOX */
+        pre { background: #181818; padding: 15px; border-radius: 5px; color: #9cdcfe; border: 1px solid #333; overflow-x: auto; font-size: 0.85rem; margin: 10px 0; }
+        .keyword { color: #569cd6; }
+        .string { color: #ce9178; }
+        .number { color: #b5cea8; }
+
+        /* TEXTURE GRID */
+        .texture-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin: 20px 0; }
+        .texture-card { background: #1e1e1e; padding: 15px; border-radius: 4px; border: 1px solid #2d2d2d; text-align: center; color: #00bcd4; font-weight: bold; transition: 0.2s; }
+        .texture-card:hover { border-color: #00bcd4; transform: scale(1.05); }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <a href="index.html" class="back-btn">🏠 Back To Hub</a>
+        <p style="font-size: 0.8rem; color: #666;">Navigation:<br>Visuals & Particles</p>
+    </div>
+
+    <div class="main-content">
+        <h1>Master Particles Reference</h1>
+        <input type="text" id="searchInput" class="search-box" placeholder="Search textures..." onkeyup="filterTextures()">
+
+        <section>
+            <h2>1. Particle Textures</h2>
+            <p>These strings can be used as the <code>texture</code> input in particle functions:</p>
+            <div class="texture-grid" id="textureGrid">
+                <div class="texture-card">bubble</div>
+                <div class="texture-card">critical_hit</div>
+                <div class="texture-card">drift</div>
+                <div class="texture-card">effect_5</div>
+                <div class="texture-card">generic_2</div>
+                <div class="texture-card">glint</div>
+                <div class="texture-card">heart</div>
+                <div class="texture-card">soul_0</div>
+                <div class="texture-card">square_particle</div>
+                <div class="texture-card">z-particle</div>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Example Particle Effect Code</h2>
+            <pre>
+<span class="keyword">let</span> [x, y, z] = thisPos;
+y += <span class="number">1</span>;
+
+<span class="keyword">api</span>.playParticleEffect({
+    dir1: [-<span class="number">1</span>, -<span class="number">1</span>, -<span class="number">1</span>],
+    dir2: [<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>],
+    pos1: [x, y, z],
+    pos2: [x + <span class="number">1</span>, y + <span class="number">1</span>, z + <span class="number">1</span>],
+    texture: <span class="string">"bubble"</span>,
+    minLifeTime: <span class="number">0.2</span>,
+    maxLifeTime: <span class="number">0.6</span>,
+    minEmitPower: <span class="number">2</span>,
+    maxEmitPower: <span class="number">2</span>,
+    minSize: <span class="number">0.25</span>,
+    maxSize: <span class="number">0.35</span>,
+    manualEmitCount: <span class="number">20</span>,
+    gravity: [<span class="number">0</span>, -<span class="number">10</span>, <span class="number">0</span>],
+    colorGradients: [
+        {
+            timeFraction: <span class="number">0</span>,
+            minColor: [<span class="number">60</span>, <span class="number">60</span>, <span class="number">150</span>, <span class="number">1</span>],
+            maxColor: [<span class="number">200</span>, <span class="number">200</span>, <span class="number">255</span>, <span class="number">1</span>],
+        },
+    ],
+    velocityGradients: [
+        {
+            timeFraction: <span class="number">0</span>,
+            factor: <span class="number">1</span>,
+            factor2: <span class="number">1</span>,
+        },
+    ],
+    blendMode: <span class="number">1</span>,
+});</pre>
+        </section>
+    </div>
+
+    <script>
+        function filterTextures() {
+            const q = document.getElementById('searchInput').value.toLowerCase();
+            document.querySelectorAll('.texture-card').forEach(card => {
+                card.style.display = card.innerText.toLowerCase().includes(q) ? "" : "none";
+            });
+        }
+    </script>
+</body>
+</html>

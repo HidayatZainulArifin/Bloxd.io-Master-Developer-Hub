@@ -1,0 +1,216 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloxd.io Master Client Options (Full 90+)</title>
+    <style>
+        /* CSS THEME CLIENT OPTIONS (EMERALD GREEN) */
+        body { font-family: 'Consolas', 'Monaco', monospace; background-color: #0d0d0d; color: #e0e0e0; margin: 0; display: flex; line-height: 1.5; }
+        
+        /* SIDEBAR */
+        .sidebar { width: 250px; background: #1a1a1a; height: 100vh; position: fixed; border-right: 2px solid #2ecc71; padding: 20px; box-sizing: border-box; z-index: 1000; }
+        .back-btn { display: block; background: #2ecc71; color: #000; text-decoration: none; padding: 12px; border-radius: 4px; font-weight: bold; text-align: center; margin-bottom: 20px; transition: 0.2s; }
+        .back-btn:hover { background: #27ae60; transform: translateY(-2px); }
+
+        /* MAIN CONTENT */
+        .main-content { margin-left: 250px; padding: 20px; width: 100%; max-width: 1400px; }
+        
+        .header { position: sticky; top: 0; background: #0d0d0d; padding-bottom: 15px; border-bottom: 2px solid #333; z-index: 900; }
+        h1 { color: #2ecc71; margin: 0; padding-top: 10px; }
+        h2 { color: #a2f2c2; margin-top: 40px; border-left: 4px solid #2ecc71; padding-left: 10px; }
+        
+        .search-box { width: 100%; padding: 12px; background: #1e1e1e; border: 1px solid #333; color: #2ecc71; border-radius: 4px; font-size: 1.1em; outline: none; margin-top: 15px; }
+        .search-box:focus { border-color: #2ecc71; }
+
+        /* CODE BOX */
+        pre { background: #181818; padding: 15px; border-radius: 5px; color: #9cdcfe; border: 1px solid #333; overflow-x: auto; font-size: 0.85rem; margin: 10px 0; }
+        .keyword { color: #569cd6; }
+        .string { color: #ce9178; }
+        .comment { color: #6a9955; }
+
+        /* OPTIONS GRID */
+        .option-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 12px; margin-top: 20px; }
+        .option-card { background: #1e1e1e; border: 1px solid #2d2d2d; padding: 15px; border-radius: 6px; transition: 0.2s; position: relative; }
+        .option-card:hover { border-color: #2ecc71; background: #252526; transform: translateY(-2px); }
+        
+        .opt-name { color: #4fc3f7; font-weight: bold; font-size: 1rem; display: block; margin-bottom: 5px; }
+        .opt-type { color: #ce9178; font-size: 0.75rem; background: #333; padding: 2px 6px; border-radius: 3px; font-style: normal; }
+        .opt-desc { display: block; font-size: 0.85rem; margin-top: 10px; color: #bbb; line-height: 1.4; }
+
+        .counter { color: #888; font-size: 0.8rem; margin-top: 5px; }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <a href="index.html" class="back-btn">🏠 Back To Hub</a>
+        <p style="font-size: 0.8rem; color: #666;">Navigation:<br>Client Options Doc</p>
+        <hr style="border:0; border-top:1px solid #333; margin: 15px 0;">
+        <p style="font-size: 0.7rem; color: #555;">Full list of 90+ customizable player properties.</p>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <h1>Master Client Options</h1>
+            <input type="text" id="searchInput" class="search-box" placeholder="Search 90+ options (e.g. speed, health, fov, camera)..." onkeyup="filterContent()">
+            <div id="countDisplay" class="counter">Loading options...</div>
+        </div>
+        
+        <section>
+            <h2>1. API Methods</h2>
+            <p>Use these functions to modify the options during gameplay:</p>
+            <pre><span class="comment">// Set a single option</span>
+<span class="keyword">api</span>.setClientOption(playerId, <span class="string">"speedMultiplier"</span>, <span class="number">2</span>)
+
+<span class="comment">// Get current value of an option</span>
+<span class="keyword">const</span> val = <span class="keyword">api</span>.getClientOption(playerId, <span class="string">"maxHealth"</span>)
+
+<span class="comment">// Set multiple options at once</span>
+<span class="keyword">api</span>.setClientOptions(playerId, { <span class="string">"canChange"</span>: <span class="keyword">false</span>, <span class="string">"invincible"</span>: <span class="keyword">true</span> })
+
+<span class="comment">// Reset to default</span>
+<span class="keyword">api</span>.setClientOptionToDefault(playerId, <span class="string">"jumpAmount"</span>)</pre>
+        </section>
+
+        <h2>2. Detailed Options List</h2>
+        <div class="option-grid" id="optionGrid">
+            <!-- Data rendered by JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        const optionsList = [
+            { n: "canChange", t: "boolean", d: "Whether the player can change (place/break) blocks." },
+            { n: "speedMultiplier", t: "number", d: "Multiplier for the player movement speed." },
+            { n: "crouchingSpeed", t: "number", d: "Speed multiplier for the player when crouching." },
+            { n: "walkingSpeed", t: "number", d: "Walking speed value (ignored on mobile)." },
+            { n: "runningSpeed", t: "number", d: "Running speed value (ignored on mobile)." },
+            { n: "jumpAmount", t: "number", d: "Amount of jump power the player has." },
+            { n: "airJumpCount", t: "number", d: "Number of extra air jumps (double jump if 1)." },
+            { n: "bunnyhopMaxMultiplier", t: "number", d: "Maximum multiplier for jump height when bunnyhopping." },
+            { n: "music", t: "Song", d: "The music track to play in the background." },
+            { n: "musicVolumeLevel", t: "number", d: "Volume level for the music (0.0 - 1.0)." },
+            { n: "skyBox", t: "string | EarthSkyBox", d: "Customizes the sky background." },
+            { n: "minChunkAddDist", t: "[number, number]", d: "Radius of region where chunks are loaded." },
+            { n: "showPlayersInUnloadedChunks", t: "boolean", d: "Whether to show players in unloaded chunks." },
+            { n: "useInventory", t: "boolean", d: "Whether to allow player to use inventory/hotbar." },
+            { n: "useFullInventory", t: "boolean", d: "Enables UI of the full inventory." },
+            { n: "canCraft", t: "boolean", d: "Whether the player can craft items." },
+            { n: "canPickUpItems", t: "boolean", d: "Whether to allow player to pick up items." },
+            { n: "playerZoom", t: "number", d: "Default camera zoom level." },
+            { n: "zoomOutDistance", t: "number", d: "Distance to zoom the camera out to." },
+            { n: "maxPlayerZoom", t: "number", d: "Maximum allowed camera zoom level." },
+            { n: "lobbyLeaderboardInfo", t: "object", d: "Configures columns of the lobby leaderboard." },
+            { n: "canCustomiseChar", t: "boolean", d: "Whether player can change their character skin." },
+            { n: "defaultBlock", t: "string", d: "Default block used if inventory is disabled but canChange is true." },
+            { n: "cantChangeError", t: "string", d: "Error message when failing to change a block." },
+            { n: "cantBreakError", t: "string", d: "Error message when failing to break a block." },
+            { n: "cantBuildError", t: "string", d: "Error message when failing to place a block." },
+            { n: "touchscreenActionButton", t: "string", d: "Contents/Icon of the mobile action button." },
+            { n: "strictFluidBuckets", t: "boolean", d: "Whether fluid can be placed when canChange is false." },
+            { n: "canUseZoomKey", t: "boolean", d: "Whether player can use the zoom key." },
+            { n: "canAltAction", t: "boolean", d: "Whether player can use right-click (alt action)." },
+            { n: "canSeeNametagsThroughWalls", t: "boolean", d: "Whether nametags are visible behind blocks." },
+            { n: "showBasicMovementControls", t: "boolean", d: "Whether to show movement guide UI." },
+            { n: "middleTextUpper", t: "string", d: "Large text display in the middle of screen." },
+            { n: "middleTextLower", t: "string", d: "Small text display in the middle of screen." },
+            { n: "crosshairText", t: "string", d: "Text displayed next to the crosshair." },
+            { n: "RightInfoText", t: "string", d: "Text displayed in the right info box." },
+            { n: "numClosestPlayersVisible", t: "number", d: "Limit visibility to closest X players." },
+            { n: "showProgressBar", t: "boolean", d: "Whether to show the progress bar." },
+            { n: "showKillfeed", t: "boolean", d: "Whether to show the killfeed UI." },
+            { n: "chatChannels", t: "array", d: "Defines selectable chat channels." },
+            { n: "creative", t: "boolean", d: "Enables creative mode (flying, block picking)." },
+            { n: "flySpeedMultiplier", t: "number", d: "Multiplier for flying speed in creative." },
+            { n: "canPickBlocks", t: "boolean", d: "Whether player can middle-click to pick blocks." },
+            { n: "compassTarget", t: "pos", d: "Target coordinate for the compass." },
+            { n: "ttbMultiplier", t: "number", d: "Multiplier for Time To Break blocks." },
+            { n: "inventoryItemsMoveable", t: "boolean", d: "Whether items can be moved in inventory." },
+            { n: "invincible", t: "boolean", d: "Makes player immune to all damage." },
+            { n: "maxShield", t: "number", d: "Maximum shield capacity." },
+            { n: "initialShield", t: "number", d: "Starting shield when joining/respawning." },
+            { n: "maxHealth", t: "number", d: "Maximum health capacity." },
+            { n: "initialHealth", t: "number", d: "Starting health (can be null for no health)." },
+            { n: "healthRegenAmount", t: "number", d: "Fraction of health recovered per tick." },
+            { n: "healthRegenInterval", t: "number", d: "Frequency of health regen ticks (ms)." },
+            { n: "healthRegenStartAfter", t: "number", d: "Delay before regen starts after damage (ms)." },
+            { n: "effectDamageDuration", t: "number", d: "Duration of Plum item damage boost." },
+            { n: "effectSpeedDuration", t: "number", d: "Duration of Coconut speed boost." },
+            { n: "effectDamageReductionDuration", t: "number", d: "Duration of Pear defense boost." },
+            { n: "effectHealthRegenDuration", t: "number", d: "Duration of Cherry regen boost." },
+            { n: "potionEffectDuration", t: "number", d: "Base duration for potions." },
+            { n: "splashPotionEffectDuration", t: "number", d: "Base duration for splash potions." },
+            { n: "arrowPotionEffectDuration", t: "number", d: "Base duration for tipped arrows." },
+            { n: "cameraTint", t: "[r, g, b, a]", d: "Screen color tint (RGBA values 0-1)." },
+            { n: "secsToRespawn", t: "number", d: "Delay in seconds before respawn is allowed." },
+            { n: "usePlayAgainButton", t: "boolean", d: "Shows 'Play Again' button after death." },
+            { n: "autoRespawn", t: "boolean", d: "Respawn automatically after timer ends." },
+            { n: "respawnButtonText", t: "string", d: "Custom text on the respawn button." },
+            { n: "killstreakDuration", t: "number", d: "Time before killstreak expires (ms)." },
+            { n: "dealingDamageMultiplier", t: "number", d: "Damage dealt multiplier (all types)." },
+            { n: "dealingDamageHeadMultiplier", t: "number", d: "Headshot damage multiplier (Guns)." },
+            { n: "dealingDamageLegMultiplier", t: "number", d: "Legshot damage multiplier (Guns)." },
+            { n: "dealingDamageDefaultMultiplier", t: "number", d: "Body damage multiplier (Guns)." },
+            { n: "receivingDamageMultiplier", t: "number", d: "Incoming damage multiplier." },
+            { n: "droppedItemScale", t: "number", d: "Size scale for dropped item meshes." },
+            { n: "movementBasedFovScale", t: "number", d: "FOV sensitivity to movement." },
+            { n: "airFrictionScale", t: "number", d: "Friction applied while airborne." },
+            { n: "groundFrictionScale", t: "number", d: "Friction applied while on ground." },
+            { n: "airAccScale", t: "number", d: "Acceleration multiplier in air." },
+            { n: "airMomentumConservation", t: "boolean", d: "Strafe momentum conservation in air." },
+            { n: "fallDamage", t: "boolean", d: "Whether falling deals damage." },
+            { n: "auraPerLevel", t: "number", d: "Aura XP needed for each level." },
+            { n: "maxAuraLevel", t: "number", d: "Maximum aura level (0 to disable)." },
+            { n: "fogChunkDistanceOverride", t: "number", d: "Custom fog distance (chunks)." },
+            { n: "fogColourOverride", t: "string", d: "Custom fog color (RGB hex)." },
+            { n: "horizontalKnockbackMultiplier", t: "number", d: "Horizontal KB power when dealing dmg." },
+            { n: "verticalKnockbackMultiplier", t: "number", d: "Vertical KB power when dealing dmg." },
+            { n: "stompDamageMultiplier", t: "number", d: "Stomp damage power (Spiked Boots)." },
+            { n: "stompDamageRadius", t: "number", d: "Range of the stomp damage effect." },
+            { n: "crouchMobDetectionRadiusMultiplier", t: "number", d: "Mob detection range multiplier when crouching." },
+            { n: "bounciness", t: "number", d: "Player bounciness factor on blocks." },
+            { n: "canClimbWalls", t: "boolean", d: "Enables wall climbing ability." },
+            { n: "proximityFadeDistance", t: "number", d: "Distance for entity opacity fading." },
+            { n: "proximityFadeMinOpacity", t: "number", d: "Minimum opacity during proximity fade." },
+            { n: "forcedCameraDirection", t: "[x, y, z]", d: "Forces camera to look at a vector." },
+            { n: "forcedCameraDirectionTransitionMs", t: "number", d: "Animation speed for forced camera (ms)." },
+            { n: "cameraRoll", t: "number", d: "Camera roll angle in radians." },
+            { n: "cameraRollTransitionMs", t: "number", d: "Animation speed for camera roll (ms)." }
+        ];
+
+        function renderOptions(filter = "") {
+            const grid = document.getElementById('optionGrid');
+            const countDisplay = document.getElementById('countDisplay');
+            grid.innerHTML = "";
+            let count = 0;
+
+            optionsList.forEach(opt => {
+                if (opt.n.toLowerCase().includes(filter.toLowerCase()) || opt.d.toLowerCase().includes(filter.toLowerCase())) {
+                    count++;
+                    const card = document.createElement('div');
+                    card.className = 'option-card';
+                    card.innerHTML = `
+                        <span class="opt-name">${opt.n}</span>
+                        <span class="opt-type">${opt.t}</span>
+                        <span class="opt-desc">${opt.d}</span>
+                    `;
+                    grid.appendChild(card);
+                }
+            });
+
+            countDisplay.innerText = `Found ${count} Options`;
+        }
+
+        function filterContent() {
+            renderOptions(document.getElementById('searchInput').value);
+        }
+
+        // Initialize
+        renderOptions();
+    </script>
+</body>
+</html>

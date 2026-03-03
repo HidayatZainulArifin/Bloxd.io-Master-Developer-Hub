@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bloxd.io Master QTEs Reference (Full Technical)</title>
+    <style>
+        /* CSS THEME QTE (PINK/MAGENTA) */
+        body { font-family: 'Consolas', 'Monaco', monospace; background-color: #0d0d0d; color: #e0e0e0; margin: 0; display: flex; line-height: 1.5; }
+        
+        /* SIDEBAR */
+        .sidebar { width: 250px; background: #1a1a1a; height: 100vh; position: fixed; border-right: 2px solid #ff4081; padding: 20px; box-sizing: border-box; }
+        .back-btn { display: block; background: #ff4081; color: #fff; text-decoration: none; padding: 12px; border-radius: 4px; font-weight: bold; text-align: center; margin-bottom: 20px; transition: 0.2s; }
+        .back-btn:hover { background: #f50057; }
+
+        /* MAIN CONTENT */
+        .main-content { margin-left: 250px; padding: 20px; width: 100%; max-width: 1200px; }
+        h1 { color: #ff4081; border-bottom: 2px solid #333; padding-bottom: 10px; margin: 0; }
+        h2 { color: #ff80ab; margin-top: 40px; border-left: 4px solid #ff4081; padding-left: 10px; }
+        h3 { color: #f06292; margin-top: 25px; font-size: 1.2rem; }
+        
+        .search-box { width: 100%; padding: 12px; background: #1e1e1e; border: 1px solid #333; color: #ff4081; border-radius: 4px; font-size: 1.1em; outline: none; margin: 15px 0; }
+        
+        /* CODE BOX */
+        pre { background: #181818; padding: 15px; border-radius: 5px; color: #9cdcfe; border: 1px solid #333; overflow-x: auto; font-size: 0.85rem; margin: 10px 0; }
+        .keyword { color: #569cd6; }
+        .string { color: #ce9178; }
+        .comment { color: #6a9955; }
+        .number { color: #b5cea8; }
+
+        /* QTE CARDS */
+        .qte-container { display: grid; gap: 20px; margin-top: 20px; }
+        .qte-card { background: #1e1e1e; border: 1px solid #333; padding: 20px; border-radius: 8px; transition: 0.2s; }
+        .qte-card:hover { border-color: #ff4081; }
+        .param-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.85rem; }
+        .param-table th, .param-table td { border: 1px solid #333; padding: 8px; text-align: left; }
+        .param-table th { background: #252526; color: #ff80ab; }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <a href="index.html" class="back-btn">🏠 Back To Hub</a>
+        <p style="font-size: 0.8rem; color: #666;">Navigation:<br>Quick Time Events</p>
+    </div>
+
+    <div class="main-content">
+        <h1>Master Quick Time Events (QTEs)</h1>
+        <input type="text" id="searchInput" class="search-box" placeholder="Search QTE types or parameters..." onkeyup="filterContent()">
+
+        <section>
+            <h2>1. Usage Patterns</h2>
+            <p>Triggering a QTE from server-side and handling results in the callback:</p>
+            <pre><span class="comment">// 1. Starting a QTE</span>
+<span class="keyword">const</span> qteId = <span class="keyword">api</span>.addQTE(playerId, {
+    type: <span class="string">"progressBar"</span>,
+    parameters: {
+        progressDecreasePerTick: <span class="number">0.075</span>,
+        progressPerClick: <span class="number">7</span>,
+        canFail: <span class="keyword">false</span>,
+        description: [{ str: <span class="string">"Click repeatedly to complete!"</span> }],
+        clickIcon: <span class="string">"fa-solid fa-computer-mouse"</span>,
+    },
+})
+
+<span class="comment">// 2. Handling the Result (In World Code)</span>
+onPlayerFinishQTE(playerId, qteId, result) {
+    <span class="keyword">if</span> (result) {
+        <span class="comment">// Success Logic</span>
+    } <span class="keyword">else</span> {
+        <span class="comment">// Failure Logic</span>
+    }
+}
+
+<span class="comment">// 3. Utility Methods</span>
+<span class="keyword">api</span>.deleteQTE(playerId, qteId) <span class="comment">// Cancel active QTE</span>
+<span class="keyword">const</span> hasQTE = <span class="keyword">api</span>.hasActiveQTE(playerId) <span class="comment">// Check if player is in a QTE</span></pre>
+        </section>
+
+        <section id="qteTypes">
+            <h2>2. QTE Types & Parameters</h2>
+
+            <div class="qte-container">
+                <!-- progressBar -->
+                <div class="qte-card">
+                    <h3>progressBar</h3>
+                    <p>Click rapidly to fill a progress bar before it drains to zero.</p>
+                    <table class="param-table">
+                        <tr><th>Parameter</th><th>Type</th><th>Default</th></tr>
+                        <tr><td>progressStartValue</td><td>number</td><td>30</td></tr>
+                        <tr><td>progressDecreasePerTick</td><td>number</td><td>0.075</td></tr>
+                        <tr><td>progressPerClick</td><td>number</td><td>5</td></tr>
+                        <tr><td>canFail</td><td>boolean</td><td>false</td></tr>
+                        <tr><td>clickIcon</td><td>string</td><td>"fa-solid fa-computer-mouse"</td></tr>
+                    </table>
+                </div>
+
+                <!-- timedClick -->
+                <div class="qte-card">
+                    <h3>timedClick</h3>
+                    <p>A prompt appears and the player must click before the timer runs out.</p>
+                    <table class="param-table">
+                        <tr><th>Parameter</th><th>Type</th><th>Default</th></tr>
+                        <tr><td>timeWindow</td><td>number (ms)</td><td>3000</td></tr>
+                        <tr><td>showTimer</td><td>boolean</td><td>true</td></tr>
+                        <tr><td>breatheCenter</td><td>boolean</td><td>false</td></tr>
+                        <tr><td>scale / rotation</td><td>number</td><td>1 / 15</td></tr>
+                    </table>
+                </div>
+
+                <!-- gravityBar -->
+                <div class="qte-card">
+                    <h3>gravityBar</h3>
+                    <p>Hold click to push catch zone up, release to let it fall. Overlap the mover to gain progress.</p>
+                    <table class="param-table">
+                        <tr><th>Parameter</th><th>Type</th><th>Default</th></tr>
+                        <tr><td>catchZoneSize</td><td>number (0-1)</td><td>0.25</td></tr>
+                        <tr><td>moverSpeed</td><td>number</td><td>3</td></tr>
+                        <tr><td>gravity / riseSpeed</td><td>number</td><td>1 / 1.5</td></tr>
+                        <tr><td>progressGainPerSecond</td><td>number</td><td>8</td></tr>
+                    </table>
+                </div>
+
+                <!-- precisionBar -->
+                <div class="qte-card">
+                    <h3>precisionBar</h3>
+                    <p>Click when the marker is within the green success zone in the center.</p>
+                    <table class="param-table">
+                        <tr><th>Parameter</th><th>Type</th><th>Default</th></tr>
+                        <tr><td>speed</td><td>number</td><td>0.5</td></tr>
+                        <tr><td>successZoneSize</td><td>number (0-1)</td><td>0.15</td></tr>
+                        <tr><td>label</td><td>CustomText</td><td>"Click when inside green zone"</td></tr>
+                    </table>
+                </div>
+
+                <!-- rhythmClick -->
+                <div class="qte-card">
+                    <h3>rhythmClick</h3>
+                    <p>Click when a shrinking outer circle aligns with the fixed inner circle.</p>
+                    <table class="param-table">
+                        <tr><th>Parameter</th><th>Type</th><th>Default</th></tr>
+                        <tr><td>requiredSuccesses</td><td>number</td><td>5</td></tr>
+                        <tr><td>shrinkDurationMs</td><td>number</td><td>1200</td></tr>
+                        <tr><td>toleranceFraction</td><td>number</td><td>0.15</td></tr>
+                        <tr><td>maxMisses</td><td>number</td><td>3</td></tr>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function filterContent() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.qte-card');
+
+            cards.forEach(card => {
+                const text = card.innerText.toLowerCase();
+                card.style.display = text.includes(query) ? "" : "none";
+            });
+        }
+    </script>
+</body>
+</html>
