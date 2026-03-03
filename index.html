@@ -206,11 +206,23 @@ api.broadcastMessage("A new round is starting!", { color: "orange" });
             </pre>
         </section>
 
-        <section>
+        <section id="resources" class="section">
             <h2>Official Resources</h2>
-            <a href="https://discord.gg/vwMp5y25RX" class="discord-box" target="_blank">
-                Join Official Bloxd Discord
-            </a>
+            <div style="display: flex; flex-direction: column; gap: 15px;">
+                
+                <!-- TOMBOL LAMA (OFFICIAL BLOXD) -->
+                <a href="https://discord.gg/vwMp5y25RX" class="discord-box" target="_blank" style="max-width: 600px;">
+                    <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" width="24" alt="discord">
+                    Join Official Bloxd Discord
+                </a>
+
+                <!-- TOMBOL BARU (MASTER DEVELOPER) - DIBUAT LEBIH PANJANG -->
+                <a href="https://discord.gg/mYxAzGAAhg" class="discord-box master-dev-box" target="_blank" style="max-width: 600px; background: #404eed;">
+                    <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" width="24" alt="discord">
+                    Join Official Discord Master Developer
+                </a>
+
+            </div>
         </section>
 
         <footer style="margin-top: 100px; border-top: 1px solid #333; padding-top: 20px; font-size: 0.8rem; color: #555; text-align: center;">
@@ -219,4 +231,5 @@ api.broadcastMessage("A new round is starting!", { color: "orange" });
 
 <script>
     document.getElementById("year").innerHTML = new Date().getFullYear();
+
 </script>
