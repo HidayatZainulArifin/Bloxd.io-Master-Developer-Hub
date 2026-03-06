@@ -1,6 +1,12 @@
 <p align="center">
-  <img src="logo.png" width="220">
+  <img src="logo.png" width="400">
 </p>
+
+<p align="center">
+  <strong>The ultimate technical documentation for Bloxd.io Developers.</strong>
+</p>
+
+---
 
 # 🚀 Bloxd.io Master Developer Hub
 The most complete documentation hub for Bloxd.io Developers.
